@@ -1,0 +1,15 @@
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>FOR LIST </h1>
+    {% for check1 in keyword_2 %}
+      <h2>test{{ check1.profile_pic }}</h2>
+      </<h3>{{ check1.portfolio_site }}</h3>
+      <img src = "{{ check1.profie_pic }}">
+      {% endfor %}
+  </body>
+</html>

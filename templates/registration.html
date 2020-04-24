@@ -1,0 +1,16 @@
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>FOR form</h1>
+        <form method="POST">
+            {%csrf_token%}
+            {{form_1.as_p}}
+            <input type="submit" value ="submit">
+        </form>
+
+  </body>
+</html>
