@@ -1,20 +1,17 @@
-<<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block body_block %}
+
     <h1>THE PROFILE</h1>
     <ul>
-        <li>{{username}}</li>
-        <li>{{ firstname1 }}</li>
-        <li>{{ lastname1 }}</li>
+        <li>Username : {{username}}</li>
+        <li>FirstName : {{ firstname1 }}</li>
+        <li>LastName : {{ lastname1 }}</li>
       </ul>
     <ul>
       <h2> FOLLOWING LIST </h2>
         {% for check in follow_list %}
-          <li>Friend Name:{{ check.username}}</li>
+          <li>UserName : {{ check.username}}</li>
         {% endfor %}
     </ul>
   <!--  <ul>
@@ -23,7 +20,8 @@
         <li> { list.username }}</li>
         {% endfor %}
     </ul> -->
+
    <img src="{{ profile_pic }}">
-    <a href = "{% url 'follow' id=user_id %}">follow</a>
-  </body>
-</html>
+    <a href = "{% url 'follow' id=user_id %}"><button>{{status}}</button></a>
+
+{% endblock  %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<h1> Please Update Your Profile</h1>
+<form  method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+<!--  {{form.as_p}} -->
+
+<label name="img">Select image:</label>
+<input type="file" id="img" placeholder="img" name="img">
+<input type="submit">
+</form>
+
+
+</form>
+
+{% endblock %}

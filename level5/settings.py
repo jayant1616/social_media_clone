@@ -22,7 +22,7 @@ MEDIA_DIR = os.path.join(BASE_DIR,'media')
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8*1il+5f=*tfq4cvb6g7u)7f05fb71j9^ne2beakr4tvipc=fb'
+SECRET_KEY = #production secret
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -138,4 +138,4 @@ EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = #production secret

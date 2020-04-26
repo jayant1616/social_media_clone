@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+<h1>The comments for this Post</h1>
+
+{% for check in comments %}
+<ul>
+  <li>
+    {{check.user_comment}}
+  </li>
+</ul>
+{% endfor %}
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,HttpResponse
 from basicapp.models import profile,friends,Posts,Comments
-from basicapp.forms import user_form,newpost,comment
+from basicapp.forms import user_form,newpost,comment,profile_update
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.core.mail import send_mail
@@ -22,13 +22,15 @@ def registration(request):
             password = form_obj.cleaned_data['password']
             user = User(username=username,first_name=firstname,last_name=lastname)#,birthdate=birthdate)
             user.set_password(password)
-            profile_obj = profile(user=user,portfolio_site=pro_site)#,profile_pic=pro_pic)
             user.save()
+            profile_obj = profile(user=user,portfolio_site=pro_site)#,profile_pic=pro_pic)
+            #user.save()
             print(user.username)
             profile_obj.save()
             friends.objects.create(tag=user)
             friends.objects.get(tag=user).save()
-            return HttpResponse('done')
+            return redirect('/login/')
+            #return HttpResponse('done')
     else:
         form_obj= user_form()
         return render(request,'registration.html',{'form_1':form_obj,})
@@ -50,6 +52,37 @@ def user_login(request):
             return HttpResponse('invalid credentials')
     else:
         return render(request,'login.html',{})
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')
+
+def home(request):
+    return render(request,'home.html',{})
+
+"""
+def update_profile(request):
+    user = request.user
+    profile_updt = profile(user = user) #profile model object
+
+    if request.method == 'POST':
+        form = profile_update(request.POST)
+        if form.is_valid():
+            print('checking update')
+            #user.email = form.cleaned_data['email']
+            profile_updt.profile_pic =  request.FILE["img"]
+            #form.save()
+            print(profile.objects.get(user=User.objects.get(username='admin')).profile_pic)
+
+            print(profile_updt.profile_pic)
+            print(profile_updt.profile_pic.url)
+            profile_updt.save()
+            return redirect('/')
+
+    else:
+        form = profile_update()
+        return render(request,'profile_UPDATE.html',{'form':form})"""
+#the folowing is not functioning due to form failing validation, working on it
 
 def newsfeed(request):
     print(request)
@@ -92,10 +125,16 @@ def comments(request,id):
             print('checkcomment')
             comment_object.user_comment = form.cleaned_data['comment_add']
             comment_object.save()
-            return redirect('http://127.0.0.1:8000/admin/')
+            return redirect('all_comments',id = id)
     else:
         form = comment()
         return render(request,'comments.html',{'form':form,})
+
+def all_comments(request,id):
+    post = Posts.objects.get(id=id)
+    all_comments = Posts.objects.get(id=id).comments.all()
+    context = {'comments':all_comments}
+    return render(request,'all_comments.html',context)
 
 def user_profiles(request):
     print(request)
@@ -106,12 +145,12 @@ def user_profiles(request):
 
 
 def ind_profile(request,user_id):
-    user = User.objects.get(id = user_id)
-    follow_list = friends.objects.get(tag = user).following.all()
-    follower_list = user.followers.all()
+    profile_user = User.objects.get(id = user_id) #user of profile
+    follow_list = friends.objects.get(tag = request.user).following.all() # logged in user's folllowiing list
+    #follower_list = user.followers.all()
     #users_qset = User.objects.none()
     try :
-        prof_pic = profile.objects.get(user=user).profile_pic.url
+        prof_pic = profile.objects.get(user=profile_user).profile_pic.url
 
     except:
         prof_pic = '/media/profile_pics/default.png'
@@ -120,11 +159,11 @@ def ind_profile(request,user_id):
     """for all in follower_list:
         users_qset = users_qset|all.tag
         """
-    if request.user in follow_list:
+    if profile_user in follow_list: # check if looged in user is following profile
         status='Already following'
     else:
         status = 'Follow'
-    values={'profile_pic':prof_pic,'user_id':user_id,'username':user.username,'firstname1':user.first_name,'lastname1':user.last_name,'follow_list':follow_list,'  status':status}
+    values={'profile_pic':prof_pic,'user_id':user_id,'username':profile_user.username,'firstname1':profile_user.first_name,'lastname1':profile_user.last_name,'follow_list':follow_list,'status':status}
     return render(request,'show_user.html',values)
 
 def add_following(request,id):
@@ -133,7 +172,7 @@ def add_following(request,id):
         friends.objects.get(tag= user).following.add(User.objects.get(id=id))
         friends.objects.get(tag= user).save()
 
-        return HttpResponse('followed')
+        return redirect('ind_profile',user_id = id)
     else:
         return HttpResponse('already following')
 

@@ -21,10 +21,14 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('',views.home,name='home'),
+    path('logout/',views.user_logout,name='logout'),
     path('register/',views.registration,name='registration'),
+    path('profile_update/',views.update_profile,name='update'),
     path('admin/', admin.site.urls),
     path('newsfeed/',views.newsfeed,name='newsfeed'),
     path('newsfeed/<int:id>/',views.comments,name='comment_post'),
+    path('comments/<int:id>/',views.all_comments,name='all_comments'),
     path('login/',views.user_login,name='login'),
     path('add_post/',views.add_post,name='add_post'),
     path('profiles/',views.user_profiles,name='profiles'),

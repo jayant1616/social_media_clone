@@ -1,10 +1,6 @@
-<<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block body_block %}
     <h1>COMMENTS FOR THIS POST</h1>
     <form method="POST" >
       {%csrf_token%}
@@ -12,5 +8,4 @@
       <input type ="submit" value = "ADD COMMENT">
       </form>
 
-  </body>
-</html>
+{% endblock %}

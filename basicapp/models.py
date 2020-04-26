@@ -16,6 +16,6 @@ class Posts(models.Model):
     user_post= models.CharField(max_length=240,default='Tell People about your day...')
     #pos0t_image = models.ImageField(upload_to='')
 class Comments(models.Model):
-    for_comment = models.ForeignKey(Posts,on_delete=models.CASCADE)
+    for_comment = models.ForeignKey(Posts,on_delete=models.CASCADE,related_name='comments')
     user_comment = models.CharField(max_length=64,default='comment something')
     user = models.ForeignKey(User,related_name='comments',on_delete=models.CASCADE,null ='True')

@@ -1,13 +1,16 @@
-<<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block body_block %}
+
     <h1>LIST OF USERS ON THIS WEBSITE!!!</h1>
       {% for check in users %}
+      <ul>
+        <li>
+
         <a href = "{% url 'ind_profile' user_id=check.id %}" > {{ check.username }}</a>
+
+      </li>
+      </ul>
       {% endfor %}
-  </body>
-</html>
+
+{% endblock %}

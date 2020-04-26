@@ -1,16 +1,16 @@
-<<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block body_block %}
       <h1>Posts</h1>
       <ul style="list-style-type:disc;">
         {% for check in post_all %}
-        <li>{{check.user_post}}</li>
-        <a href="{% url 'comment_post' id=check.id %}">
+        <li>
+
+        <a href="{% url 'comment_post' id=check.id %}">{{check.user_post}}</a>
+
+        </li>
+
         {% endfor %}
       </<ul>
-  </body>
-</html>
+
+{% endblock %}

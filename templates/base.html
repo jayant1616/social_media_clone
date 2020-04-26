@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <meta charset="UTF-8">
+
+    <title>THE SOCIAL NETWORK</title>
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+
+            <a class="navbar-brand" >SOCIAL NETWORK</a>
+
+        </div>
+        {% if request.user.is_authenticated %}
+        <ul class="nav navbar-nav">
+
+
+            <li><a href="{% url 'newsfeed' %}"><span class="glyphicon glyphicon-menu-hamburger"></span> Your Feed</a></li>
+
+            <li><a href="{% url 'add_post' %}"><span class="glyphicon glyphicon-pencil"></span> New Post</a></li>
+
+            <li><a href="{% url 'logout' %}"</li><span class="glyphicon glyphicon-pencil"></span> Logout</a>
+
+            <li><a href="{% url 'update' %}"</li><span class="glyphicon glyphicon-pencil"></span>Update profile</a>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+
+
+        </ul>
+        {% else %}
+
+        <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+                <li><a href="{% url 'registration' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+        </ul>
+
+        <p>
+            <h1></h1>
+        </p>
+        {% endif %}
+
+
+
+    </div>
+
+</nav>
+
+{% block body_block %}
+
+{% endblock %}
+
+
+
+</body>
+
+</html>

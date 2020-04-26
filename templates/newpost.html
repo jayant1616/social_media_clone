@@ -1,14 +1,11 @@
-<<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block body_block %}
+
     <form method = "POST">
       {% csrf_token %}
       {{ post }}
     <input type="submit" value = "UPLOAD">
     </form>
-  </body>
-</html>
+
+{% endblock %}

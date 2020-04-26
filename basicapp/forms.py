@@ -33,3 +33,6 @@ class newpost(forms.Form):
     post_1 = forms.CharField()
 class comment(forms.Form):
     comment_add = forms.CharField(max_length=24)
+class profile_update(forms.Form):
+    email = forms.EmailField()
+    profile_pic_update = forms.ImageField()
